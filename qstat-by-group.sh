@@ -21,8 +21,8 @@ sfile=$($mktemp)
 # Get list of group members
 members=$(grep "^$1:" /etc/group | cut -d: -f4 | tr "," " ")
 # Get list of all running jobs and jobs from qstat -rn output
-$qstat | grep -F " R " > $qfile
-$qstat -rn > $rnfile
+$qstat | grep -F " R " > $qfile || exit 4
+$qstat -rn > $rnfile || exit 4
 # Get running jobs from members concerned
 for uid in $members; do
 	grep $uid $qfile >> $mfile
