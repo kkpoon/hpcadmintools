@@ -7,7 +7,7 @@
 
 import sys, datetime
 neededfields = (
-"user", "group", "Job_Id", "jobname", "queue", "start_date", "start_time",
+"user", "group", "Job_Id", "jobname", "queue", "start", "start_date", "start_time",
 "total_execution_slots", "unique_node_count", "Exit_status", "resources_used.walltime",
 "resources_used.walltime_cpuhour"
 )
