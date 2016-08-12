@@ -1,8 +1,9 @@
 #!/usr/bin/python
 # This script reads Torque accounting files (usually located at torque/server_priv/accounting)
-# and generates CSV file that can be used for pivot reporting in spreadsheet applications
+# or stdin and generates CSV file that can be used for pivot reporting in spreadsheet applications
 #
-# Usage: tra_acct2csv.py $TORQUE_HOME/server_priv/accounting/201607* > ~/usage_report_201607.csv
+# Usage: trq_acct2csv.py $TORQUE_HOME/server_priv/accounting/201607* > ~/usage_report_201607.csv
+#    Or: cat $TORQUE_HOME/server_priv/accounting/201607* | trq_acct2csv.py > ~/usage_report_201607.csv
 
 import sys, datetime
 neededfields = (
