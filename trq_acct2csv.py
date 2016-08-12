@@ -25,7 +25,10 @@ def printcsv(fields=(), data={}):
 def readacct(acctfile=""):
 	global reportlist
 	try:
-		accthandle = open(acctfile)
+		if len(acctfile):
+			accthandle = open(acctfile)
+		else:
+			accthandle = sys.stdin
 		# Only processing exiting lines
 		for line in [i for i in accthandle if i.split(';')[1] == 'E']:
 			jobdict = {}
@@ -58,8 +61,12 @@ def readacct(acctfile=""):
 	except: raise # We don't expect something to break in this try block, always raise
 
 def main(argv):
-	for acctfile in argv:		# open report files
-		readacct(acctfile)
+	
+	if len(argv):	# open report files
+		for acctfile in argv:
+			readacct(acctfile)
+	else: # stdin mode
+		readacct()
 	printheader(neededfields)	# print header as defined by needed fields
 	for i in reportlist:		# print report body
 		printcsv(neededfields, i)
