@@ -37,7 +37,7 @@ def readacct(acctfile=""):
 			jobdict = {}
 			line = line.strip().split(';')	# Removing trailing new line and break line into components
 			jobdesc = line[3].split(' ')	# Break component into properties
-			jobhash = hash(jobdesc)
+			jobhash = hash(line[3])
 			if jobhash in reporthash:
 				continue
 			jobdict['Job_Id'] = line[2]		# Fixed field
