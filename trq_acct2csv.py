@@ -12,6 +12,7 @@ neededfields = (
 "resources_used.walltime_cpuhour"
 )
 reportlist = []
+reporthash = []
 
 def printheader(fields=()):
 	for i in fields:
@@ -25,6 +26,7 @@ def printcsv(fields=(), data={}):
 
 def readacct(acctfile=""):
 	global reportlist
+	global reporthash
 	try:
 		if len(acctfile):
 			accthandle = open(acctfile)
@@ -35,6 +37,9 @@ def readacct(acctfile=""):
 			jobdict = {}
 			line = line.strip().split(';')	# Removing trailing new line and break line into components
 			jobdesc = line[3].split(' ')	# Break component into properties
+			jobhash = hash(jobdesc)
+			if jobhash in reporthash:
+				continue
 			jobdict['Job_Id'] = line[2]		# Fixed field
 			for property in jobdesc:
 				property = property.split('=')
@@ -58,6 +63,7 @@ def readacct(acctfile=""):
 				jobdict["resources_used.walltime_cpuhour"] = cpu * wallsec / 3600.0
 			except: raise # or pass? Actually you can safely ignore it usually
 			
+			reporthash.append(jobhash)
 			reportlist.append(jobdict)
 	except: raise # We don't expect something to break in this try block, always raise
 
